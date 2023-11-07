@@ -58,14 +58,28 @@ Con estos pasos, has creado una aplicación de inicio que se ejecutará automát
 
 
 ### Nota
-Asegúrate de que el archivo *script.py* sea ejecutable y que todas las rutas a los archivos sean correctas. También ten en cuenta que el entorno de tu Jetson Nano debe estar configurado correctamente para ejecutar Python 3 y el script script.py.
+Asegúrate de que el archivo **script.py** sea ejecutable y que todas las rutas a los archivos sean correctas. También ten en cuenta que el entorno de tu Jetson Nano debe estar configurado correctamente para ejecutar Python 3 y el **script.py**.
 
 
 
+### Example
+```python
+nano /home/jetson/Documents/AI/Gloves/start_button.desktop
 
+[Desktop Entry]
+Name=Gloves Vision System
+Exec=/usr/bin/python3 /home/jetson/Documents/AI/Gloves/Gloves_V1.py
+Type=Application
+StartupNotify=false
+Terminal=false
 
+sudo mv /home/jetson/Documents/AI/Gloves/start_button.desktop /etc/xdg/autostart/
 
+sudo chmod +x /etc/xdg/autostart/start_button.desktop
 
+ls -l /etc/xdg/autostart/start_gui.desktop
 
+/usr/bin/python3 /home/jetson/Documents/AI/Gloves/Gloves_V1.py
 
-
+sudo reboot
+```
