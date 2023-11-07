@@ -1,113 +1,71 @@
 # **`Creación de una Aplicación de Inicio en Jetson Nano`**
 
-### Paso 1: Crear el archivo .desktop
+### Crear el archivo .desktop
 
-
-```python
-Ctrl + Alt + T
-```
-
-### Navigate to the systemd service directory
-
-
-```python
-cd /etc/systemd/system/
-```
-
-### Create a new service file
 1. Abre una terminal en tu Jetson Nano.
 2. Utiliza el comando nano para crear un archivo .desktop en la ubicación deseada. Por ejemplo:
 
-
 ```python
-sudo nano myscript.service
+nano /path/to/your/script/directory/Auto_Start.desktop
 ```
 
-### Add the following content to the service file
+### Paso 2: Agregar el script al archivo .desktop
 
-
-```python
-[Unit]
-Description=My Script Service
-After=network.target
-
-[Service]
-ExecStart=/usr/bin/python3 /path/to/your/script.py
-WorkingDirectory=/path/to/your/script/directory
-Restart=always
-User=yourusername
-Group=yourusername
-
-[Install]
-WantedBy=multi-user.target
-```
-
-Save the file and exit the text editor:
-*   Ctrl + S -> to save the file
-*   Ctrl + X -> to exit
-
-Note: Replace **"myscript.service"** with the desired service name, **"script.py"** with the name of your program, and **"/path/to/your/script"** with the actual path where your program is located.
-
-### Reload systemd to make it aware of the new service
-
+Dentro del archivo .desktop, copia y pega el siguiente contenido:
 
 ```python
-sudo systemctl daemon-reload
+[Desktop Entry]
+Name=Name of the Project
+Exec=/usr/bin/python3 /path/to/your/script.py
+Type=Application
+StartupNotify=false
+Terminal=false
 ```
 
-### Enable and start the service
+### Paso 3: Mover el archivo de inicio al directorio del sistema
 
+Utiliza el comando sudo mv para mover el archivo .desktop al directorio de inicio del sistema:
 
 ```python
-sudo systemctl enable myscript.service
-sudo systemctl start myscript.service
+sudo mv /path/to/your/script/directory/Auto_Start.desktop /etc/xdg/autostart/
 ```
 
-### Disable and stop the service
+### Paso 4: Asignar permisos de ejecución
 
+Asegúrate de que el archivo .desktop tenga permisos de ejecución. Puedes hacerlo con el siguiente comando:
 
 ```python
-sudo systemctl disable myscript.service
-sudo systemctl stop myscript.service
+sudo chmod +x /etc/xdg/autostart/Auto_Start.desktop
+
 ```
 
-### Check the status and if the service is enable
+### Paso 5: Verificar los permisos del archivo
 
+Para verificar los permisos del archivo .desktop, ejecuta el siguiente comando:
 
 ```python
-sudo systemctl is-enabled startButton.service
-sudo systemctl status startButton.service
+ls -l /etc/xdg/autostart/Auto_Start.desktop
 ```
 
-### Example
+### Paso 5: Realizar una prueba manual
 
-As an example, let's say you have a script named button.py located in the directory /home/username/my-detection. Here's how you would configure the service:
-
+Para probar si la aplicación se inicia correctamente, ejecuta el comando manualmente en la terminal:
 
 ```python
-cd /etc/systemd/system/
-
-sudo nano startButton.service
-
-[Unit]
-Description=My Script Service
-After=network.target
-
-[Service]
-ExecStart=/usr/bin/python3 /home/username/my-detection/button.py
-WorkingDirectory=/home/username/my-detection
-Restart=always
-User=username
-
-[Install]
-WantedBy=multi-user.target
+/usr/bin/python3 /path/to/your/script.py
 ```
-
-### Clean Up
-
-If you want to remove the service, use the following command:
+Con estos pasos, has creado una aplicación de inicio que se ejecutará automáticamente cuando inicies tu Jetson Nano.
 
 
-```python
-sudo rm /etc/systemd/system/myscript.service
-```
+### Nota
+Asegúrate de que el archivo *script.py* sea ejecutable y que todas las rutas a los archivos sean correctas. También ten en cuenta que el entorno de tu Jetson Nano debe estar configurado correctamente para ejecutar Python 3 y el script script.py.
+
+
+
+
+
+
+
+
+
+
